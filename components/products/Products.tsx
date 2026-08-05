@@ -40,7 +40,7 @@ export default function Products() {
     if (!selectedProduct) return;
 
     try {
-      await api.delete(`/admin/products/${selectedProduct._id}`);
+      await api.delete(`/admin/products/${selectedProduct.id}`);
 
       setIsDeleteOpen(false);
       setSelectedProduct(null);

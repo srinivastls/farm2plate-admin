@@ -1,80 +1,44 @@
 "use client";
 
 import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
-
 import ProductForm from "./ProductForm";
 
-interface Props{
-
-    open:boolean;
-
-    onClose:()=>void;
-
-    product?:any;
-
+interface Props {
+  open: boolean;
+  onClose: () => void;
+  product?: any; // Replace 'any' with your Product type if available
 }
 
 export default function ProductDialog({
+  open,
+  onClose,
+  product,
+}: Props) {
+  const handleOpenChange = (isOpen: boolean) => {
+    if (!isOpen) {
+      onClose();
+    }
+  };
 
-    open,
+  return (
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogContent className="max-w-5xl">
+        <DialogHeader>
+          <DialogTitle>
+            {product ? "Edit Product" : "Add Product"}
+          </DialogTitle>
+        </DialogHeader>
 
-    onClose,
-
-    product,
-
-}:Props){
-
-    return(
-
-        <Dialog
-
-            open={open}
-
-            onOpenChange={onClose}
-
-        >
-
-            <DialogContent className="max-w-5xl">
-
-                <DialogHeader>
-
-                    <DialogTitle>
-
-                        {
-
-                            product
-
-                            ?
-
-                            "Edit Product"
-
-                            :
-
-                            "Add Product"
-
-                        }
-
-                    </DialogTitle>
-
-                </DialogHeader>
-
-                <ProductForm
-
-                    product={product}
-
-                    onClose={onClose}
-
-                />
-
-            </DialogContent>
-
-        </Dialog>
-
-    );
-
+        <ProductForm
+          product={product}
+          onClose={onClose}
+        />
+      </DialogContent>
+    </Dialog>
+  );
 }
