@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { login } from "@/services/auth";
 import { useRouter } from "next/navigation";
 
@@ -8,39 +8,34 @@ export default function LoginForm() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const [password, setPassword] =
-    useState("");
+  useEffect(() => {
+    const token = localStorage.getItem("token");
 
-  const [loading, setLoading] =
-    useState(false);
+    if (token) {
+      router.replace("/dashboard");
+    }
+  }, [router]);
 
-  async function handleLogin(
-    e: React.FormEvent,
-  ) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
 
     try {
       setLoading(true);
 
-      const res = await login(
-        email,
-        password,
-      );
+      const res = await login(email, password);
 
-      localStorage.setItem(
-        "token",
-        res.accessToken,
-      );
+      localStorage.setItem("token", res.accessToken);
 
-      router.push("/dashboard");
+      router.replace("/dashboard");
     } catch {
       alert("Invalid Credentials");
     } finally {
       setLoading(false);
     }
   }
-
   return (
     <div className="bg-white shadow-xl rounded-2xl p-10 w-full max-w-md">
 

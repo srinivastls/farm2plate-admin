@@ -11,3 +11,7 @@ export async function login(
 
   return res.data;
 }
+
+export function logout() {
+  localStorage.clear();
+}
