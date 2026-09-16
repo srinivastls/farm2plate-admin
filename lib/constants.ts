@@ -1,5 +1,5 @@
 export const API_URL =
-  "https://backend-farmplate-production.up.railway.app/v1";
+  "https://api.farm2plate.live/v1";
 
 export const APP_NAME =
   "FarmPlate Admin";
